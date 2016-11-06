@@ -1,0 +1,4 @@
+name: Drupal 8 DS fields
+description: Custom display suite fields
+type: module
+core: 8.x
