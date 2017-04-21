@@ -24,7 +24,6 @@ class DateAuthor extends DsFieldBase
 	public function build(){
     //cast the node info to an array otherwise the array is massive
 		$node = $this->entity()->toArray();
-    //kint($node);
     $date = $this->entity()->created->value;
     $date = \Drupal::service('date.formatter')->format($date, 'simple', $format = '', $timezone = NULL, $langcode = NULL);
     $author = $this->entity()->uid->target_id;
