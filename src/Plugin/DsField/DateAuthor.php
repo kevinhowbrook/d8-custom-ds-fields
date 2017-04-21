@@ -11,7 +11,7 @@ use Drupal\user\Entity\User;
  *   title = @Translation("Publish date and Author"),
  *   entity_type = "node",
  *   provider = "custom_dsfields",
- *   
+ *
  * )
  */
 
@@ -22,23 +22,22 @@ class DateAuthor extends DsFieldBase
 	*/
 
 	public function build(){
-        //cast the node info to an array otherwise the array is massive
+    //cast the node info to an array otherwise the array is massive
 		$node = $this->entity()->toArray();
-        //kint($node);
-        $date = $this->entity()->created->value;
-        $date = \Drupal::service('date.formatter')->format($date, 'simple', $format = '', $timezone = NULL, $langcode = NULL);
-        $author = $this->entity()->uid->target_id;
-        //Load the author
-        //or you can use $account = \Drupal\user\Entity\User::load($author);
-        $account = User::load($author);
-        $name = $account->getUsername();
-        if(empty($name)){
-            $name = 'Anonymous';
-        }
-        //kint($account->toArray());
-		  return array(
-				'#markup' => $date . t(' by ') . $name
-		  	// '#theme' => 'item_list',
-			);
+    //kint($node);
+    $date = $this->entity()->created->value;
+    $date = \Drupal::service('date.formatter')->format($date, 'simple', $format = '', $timezone = NULL, $langcode = NULL);
+    $author = $this->entity()->uid->target_id;
+    //Load the author
+    //or you can use $account = \Drupal\user\Entity\User::load($author);
+    $account = User::load($author);
+    $name = $account->getUsername();
+    if(empty($name)){
+        $name = 'Anonymous';
+    }
+    return array(
+      '#markup' => $date . t(' by ') . $name
+      // '#theme' => 'item_list',
+    );
 	}
 }
